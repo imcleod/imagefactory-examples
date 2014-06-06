@@ -1,0 +1,24 @@
+* Put your credentials into a format that Factory understands
+
+Run:
+
+$ /usr/bin/create-ec2-factory-credentials
+
+This is an interactive script that accepts your EC2 account ID, access key and secret key and (optionally) x509 certs.
+
+It will save a file called "ec2_credentials.xml"
+
+
+* Single Command:
+
+(must be run as root)
+
+# imagefactory --debug provider_image --file-parameter install_script f20-official-cloud.ks --template f20-jeos.tdl ec2 @ec2-us-west-2 ec2_credentials.xml
+
+This will actually go through three distinct steps.
+
+1) It will build a "base_image" using the kickstart file and tdl file provided
+
+2) It will create a "target_image" for EC2 based on this base_image
+
+3) It will push/upload the target_image to ec2-us-west-2
