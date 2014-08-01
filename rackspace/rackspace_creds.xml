@@ -1,0 +1,6 @@
+<provider_credentials><rackspace_credentials>
+<username>my-username</username>
+<api_key>my-api-key</api_key>
+<account_number>my-account-number</account_number>
+</rackspace_credentials></provider_credentials>
+

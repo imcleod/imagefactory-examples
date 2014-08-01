@@ -1,0 +1,17 @@
+<template>
+  <name>f20-jeos</name>
+  <os>
+    <password>Chicago33</password>
+    <name>Fedora</name>
+    <version>20</version>
+    <arch>x86_64</arch>
+    <install type='url'>
+      <url>http://mirror.pnl.gov/fedora/linux/releases/20/Fedora/x86_64/os/</url>
+    </install>
+  </os>
+  <disk>
+    <size>3</size>
+  </disk>
+  <description>Fedora 20 JEOS Image</description>
+</template>
+
