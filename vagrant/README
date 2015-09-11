@@ -1,0 +1,74 @@
+Building a Vagrant box is a three step process.
+
+1) Build a Base image with the contents you want in the box
+   The end result here is a disk image in either qcow2 or raw format.
+
+2) Build a Target image appropriate for the box type.
+   The end result is a disk image in the correct format to be the image
+   payload for the Vagrant box.
+   The target image types and parameters are:
+
+   "vsphere" for Virtualbox
+   "vsphere"  with "--parameter vsphere_vmdk_format standard" for VMWare Fusion
+   rhev-m for libvirt
+
+3) Build a second Target image of type "ova" with the following parameters:
+
+"--parameter vsphere_ova_format vagrant-vmware-fusion"
+"--parameter vsphere_ova_format vagrant-virtualbox"
+"--parameter vsphere_ova_format vagrant-libvirt"
+
+
+Full details in the examples below
+
+* Build the base image
+
+$ sudo imagefactory --debug base_image \
+  --file-parameter install_script ./f22-vagrant.ks \
+  --parameter offline_icicle true \
+  ./f22-minimal-40g.tdl
+
+<lots of debug output>
+
+============ Final Image Details ============
+UUID: 0704c979-f394-414a-b6de-cf9560ca846c
+Type: base_image
+Image filename: /var/lib/imagefactory/storage/0704c979-f394-414a-b6de-cf9560ca846c.body
+Image build completed SUCCESSFULLY!
+
+
+* Build the appropriate target image for the base image
+
+VMWare Fusion
+
+$ sudo ./imagefactory --debug target_image --parameter vsphere_vmdk_format standard --id 0704c979-f394-414a-b6de-cf9560ca846c vsphere
+
+Virtualbox
+
+$ sudo ./imagefactory --debug target_image --id 0704c979-f394-414a-b6de-cf9560ca846c vsphere
+
+libvirt
+
+$ sudo ./imagefactory --debug target_image --id 0704c979-f394-414a-b6de-cf9560ca846c rhevm-m
+
+<lots of debug output>
+
+<a message with the UUID in it>
+
+
+* Build the appropriate OVA target image
+
+VMWare Fusion
+
+$ sudo ./imagefactory --debug target_image --parameter vsphere_ova_format vagrant-vmware-fusion --id <UUID from above step> ova
+
+Virtualbox
+
+$ sudo ./imagefactory --debug target_image --parameter vsphere_ova_format vagrant-virtualbox --id <UUID from above step> ova
+
+libvirt
+
+$ sudo ./imagefactory --debug target_image --parameter vsphere_ova_format vagrant-libvirt --id <UUID from above step> ova
+
+
+The "Image filename:" output at the end of this step is a Vagrant box file that can be imported into Vagrant

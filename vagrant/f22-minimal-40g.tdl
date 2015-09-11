@@ -1,0 +1,15 @@
+<template>
+  <name>f22-minimal</name>
+  <os>
+    <name>Fedora</name>
+    <version>22</version>
+    <arch>x86_64</arch>
+    <install type='url'>
+      <url>http://mirror.pnl.gov/fedora/linux/releases/22/Server/x86_64/os/</url>
+    </install>
+  </os>
+  <description>Fedora 22 - Minimal TDL file for vagrant - 40G disk</description>
+  <disk>
+    <size>40</size>
+  </disk>
+</template>
