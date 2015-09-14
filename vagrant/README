@@ -68,7 +68,7 @@ $ sudo ./imagefactory --debug target_image --parameter vsphere_ova_format vagran
 
 libvirt
 
-$ sudo ./imagefactory --debug target_image --parameter vsphere_ova_format vagrant-libvirt --id <UUID from above step> ova
+$ sudo ./imagefactory --debug target_image --parameter rhevm_ova_format vagrant-libvirt --id <UUID from above step> ova
 
 
 The "Image filename:" output at the end of this step is a Vagrant box file that can be imported into Vagrant
