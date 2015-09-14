@@ -49,7 +49,7 @@ $ sudo ./imagefactory --debug target_image --id 0704c979-f394-414a-b6de-cf9560ca
 
 libvirt
 
-$ sudo ./imagefactory --debug target_image --id 0704c979-f394-414a-b6de-cf9560ca846c rhevm-m
+$ sudo ./imagefactory --debug target_image --id 0704c979-f394-414a-b6de-cf9560ca846c rhevm
 
 <lots of debug output>
 
