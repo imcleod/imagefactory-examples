@@ -1,0 +1,23 @@
+The Dockerfile in this directory can be used to build a container
+capable of performing the v2c tasks described in the README.
+
+In short, build a docker image using this Dockerfile, then edit
+the "run_command.sh" script with the ID or tag of the docker image
+you generated.
+
+Put your input image into a working directory and then pass that
+directory as the input to "run_command.sh".  For example:
+
+$ mkdir /tmp/v2c_workdir
+$ cp input_image.qcow2 /tmp/v2c_workdir
+$ sudo ./run_command.sh /tmp/v2c_workdir
+
+Inside of the resulting container you will see the workdir mounted
+as /tmp/workdir.  You can then run the "v2c.sh" script interactively
+from bash in the container.
+
+NOTE: You will get a great deal of debug output from both Factory and
+from libvirtd, which we start from within the script and run in the
+background but with output to stdout.  Some of this output will be
+non-fatal error messages associated with libvirtd starting up in a
+container.

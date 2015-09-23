@@ -1,0 +1,35 @@
+Image Factory makes extensive use of virtualization for image
+import and conversion to Docker.
+
+When run inside of a VM or a container (or both) this should
+generally gracefully fall back to "full emulation" (aka tcg
+or "regular qemu" or whatever other term you prefer).  However
+this does make things significantly slower.
+
+If you cannot run on bare metal, the next best option is to
+run in a VM with nested virtualization enabled.  Kashyap has
+put together a still-relevant blog post about setting this up
+here:
+
+http://kashyapc.com/2012/01/14/nested-virtualization-with-kvm-intel/
+
+The key point is to ensure that kvm and kvm_intel (or kvm_amd)
+are loaded with the nested option set to Y.
+
+Once you've done this, you can launch a libvirt guest, or a
+Vagrant libvirt box with nesting enabled.
+
+You can find a know working Vagrantfile that does this for a
+CentOS 7 libvirt vagrant box in this subdirectory:
+
+
+
+The key option in the Vagrantfile is:
+
+      domain.nested = true
+
+If set up correctly, you can launch this Vagrant box, build
+a v2c Docker container inside of it, run the container using
+the provided run script and you will end up with accelerated KVM
+guests running in the container, with the associated increase
+in speed.

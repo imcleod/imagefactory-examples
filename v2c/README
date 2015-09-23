@@ -1,0 +1,60 @@
+Image Factory can convert VM images to Docker containers.
+
+We do this by first importing the VM image as a new base_image and
+then running the existing Docker target plugin against the imported
+image.
+
+You will need a recent upstream version, ideally, the RPMs here:
+
+https://copr.fedoraproject.org/coprs/imcleod/imagefactory-docker-devel/
+
+
+Here is a simple example, using the Fedora 22 cloud image as an input
+
+
+# Get the image
+
+$ wget https://download.fedoraproject.org/pub/fedora/linux/releases/22/Cloud/x86_64/Images/Fedora-Cloud-Base-22-20150521.x86_64.qcow2
+
+# Import it as a base image
+# Remember that we must run the Factory CLI as root and the input image must be
+# in a location that libvirtd can read
+
+$ sudo imagefactory --debug import_base_image /tmp/Fedora-Cloud-Base-22-20150521.x86_64.qcow2
+
+[lots of output followed by...]
+============ Final Image Details ============
+UUID: 37555e4d-59b0-4f1f-b01f-52a42516ad35
+Type: import_base_image
+Image filename: /var/lib/imagefactory/storage/37555e4d-59b0-4f1f-b01f-52a42516ad35.body
+Image build completed SUCCESSFULLY!
+
+
+# Now prepare a Docker target image using this base image
+# Remember to pull the actual UUID that resulted from your command above
+
+$ sudo ./imagefactory --debug target_image --id 37555e4d-59b0-4f1f-b01f-52a42516ad35 docker
+
+[lots of output follwed by...]
+============ Final Image Details ============
+UUID: 5b69363f-21ad-4c2f-923b-04d882e39d21
+Type: target_image
+Image filename: /var/lib/imagefactory/storage/5b69363f-21ad-4c2f-923b-04d882e39d21.body
+Image build completed SUCCESSFULLY!
+
+# The resulting image file can now be used as the input to a "docker load" command
+# Simple things like launching /bin/bash in this container should now work
+# More complicated tasks, like launching services, may require additional changes
+# accomplished by building Docker layered images using this import as a base
+
+# Here, for example, is a look at the content of the file we generated above:
+
+[imcleod@localhost imagefactory]$ tar -tvf /var/lib/imagefactory/storage/5b69363f-21ad-4c2f-923b-04d882e39d21.body
+drwxr-xr-x root/root         0 2015-09-23 11:56 7ac2c4468c27ccc503854e2df45a29bb2d558756c62a7346354aa31acde6f826/
+-rw-r--r-- root/root       778 2015-09-23 11:56 7ac2c4468c27ccc503854e2df45a29bb2d558756c62a7346354aa31acde6f826/json
+-rw-r--r-- root/root         3 2015-09-23 11:56 7ac2c4468c27ccc503854e2df45a29bb2d558756c62a7346354aa31acde6f826/VERSION
+-rw-r--r-- root/root 452218880 2015-09-23 11:56 7ac2c4468c27ccc503854e2df45a29bb2d558756c62a7346354aa31acde6f826/layer.tar
+-rw-r--r-- root/root       121 2015-09-23 11:56 repositories
+[imcleod@localhost imagefactory]$ 
+
+# This is what a Docker base image looks like
