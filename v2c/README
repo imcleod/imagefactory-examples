@@ -11,6 +11,8 @@ https://copr.fedoraproject.org/coprs/imcleod/imagefactory-docker-devel/
 
 Here is a simple example, using the Fedora 22 cloud image as an input
 
+NOTE: The intput image can be in any format that qemu-img understands
+and that contains an OS that libguestfs can successfully inspect.
 
 # Get the image
 
@@ -33,7 +35,7 @@ Image build completed SUCCESSFULLY!
 # Now prepare a Docker target image using this base image
 # Remember to pull the actual UUID that resulted from your command above
 
-$ sudo ./imagefactory --debug target_image --id 37555e4d-59b0-4f1f-b01f-52a42516ad35 docker
+$ sudo imagefactory --debug target_image --id 37555e4d-59b0-4f1f-b01f-52a42516ad35 docker
 
 [lots of output follwed by...]
 ============ Final Image Details ============
