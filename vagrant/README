@@ -10,13 +10,13 @@ Building a Vagrant box is a three step process.
 
    "vsphere" for Virtualbox
    "vsphere"  with "--parameter vsphere_vmdk_format standard" for VMWare Fusion
-   rhev-m for libvirt
+   "rhevm" for libvirt
 
 3) Build a second Target image of type "ova" with the following parameters:
 
 "--parameter vsphere_ova_format vagrant-vmware-fusion"
 "--parameter vsphere_ova_format vagrant-virtualbox"
-"--parameter vsphere_ova_format vagrant-libvirt"
+"--parameter rhevm_ova_format vagrant-libvirt"
 
 
 Full details in the examples below
