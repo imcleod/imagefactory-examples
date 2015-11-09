@@ -72,3 +72,14 @@ $ sudo ./imagefactory --debug target_image --parameter rhevm_ova_format vagrant-
 
 
 The "Image filename:" output at the end of this step is a Vagrant box file that can be imported into Vagrant
+
+You can do this on the command line like this:
+
+$ vagrant box add mylocalboxname /var/lib/imagefactory/storage/36fcb589-06b8-447b-85bf-ed4715bd2a93.body
+$ mkdir myvagrantworkdir
+$ cd myvagrantworkdir
+$ vagrant init mylocalboxname
+$ vagrant up
+<lots of output>
+$ vagrant ssh
+<prompt inside of vagrant box>
