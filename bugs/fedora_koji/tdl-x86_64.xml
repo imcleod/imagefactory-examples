@@ -1,0 +1,19 @@
+<template>
+    <name>Fedora-Docker-Base-rawhide-20151116.x86_64</name>
+        <os>
+            <name>Fedora</name>
+            <version>20</version>
+            <arch>x86_64</arch>
+            <install type='url'>
+                <url>http://kojipkgs.fedoraproject.org/mash/rawhide-20151116/rawhide/x86_64/os/</url>
+            </install>
+        <icicle>
+                <extra_command>rpm -qa --qf '%{NAME},%{VERSION},%{RELEASE},%{ARCH},%{EPOCH},%{SIZE},%{SIGMD5},%{BUILDTIME}
+'</extra_command>
+            </icicle>
+        </os>
+    <description>Fedora-Docker-Base-rawhide-20151116.x86_64 OS</description>
+    <disk>
+        <size>3G</size>
+    </disk>
+</template>
