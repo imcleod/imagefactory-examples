@@ -1,0 +1,16 @@
+<template>
+    <name>f22</name>
+    <os>
+        <name>Fedora</name>
+        <version>20</version>
+        <arch>x86_64</arch>
+        <install type='url'>
+            <url>http://mirror.pnl.gov/fedora/linux/releases/22/Server/x86_64/os/</url>
+        </install>
+        <rootpw>ewwwwwww</rootpw>
+    </os>
+    <disk>
+      <size>4</size>
+    </disk>
+</template>
+
