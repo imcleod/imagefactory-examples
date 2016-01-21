@@ -76,29 +76,12 @@ echo -n "Getty fixes"
 sed -i '/^#NAutoVTs=.*/ a\
 NAutoVTs=0' /etc/systemd/logind.conf
 
-echo -n "Network fixes"
-# initscripts don't like this file to be missing.
-# and https://bugzilla.redhat.com/show_bug.cgi?id=1204612
-cat > /etc/sysconfig/network << EOF
-NETWORKING=yes
-NOZEROCONF=yes
-DEVTIMEOUT=10
-EOF
-
 # For cloud images, 'eth0' _is_ the predictable device name, since
 # we don't want to be tied to specific virtual (!) hardware
 rm -f /etc/udev/rules.d/70*
 ln -s /dev/null /etc/udev/rules.d/80-net-setup-link.rules
 
-# simple eth0 config, again not hard-coded to the build hardware
-cat > /etc/sysconfig/network-scripts/ifcfg-eth0 << EOF
-DEVICE="eth0"
-BOOTPROTO="dhcp"
-ONBOOT="yes"
-TYPE="Ethernet"
-PERSISTENT_DHCLIENT="yes"
-EOF
-
+echo "Creating localhost entries in /etc/hosts"
 # generic localhost names
 cat > /etc/hosts << EOF
 127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
@@ -139,7 +122,7 @@ releasever=$(rpm -q --qf '%{version}\n' fedora-release)
 basearch=$(uname -i)
 rpm --import /etc/pki/rpm-gpg/RPM-GPG-KEY-fedora-$releasever-$basearch
 
-echo "Packages within this cloud image:"
+echo "Packages within this Fedora Server image:"
 echo "-----------------------------------------------------------------------"
 rpm -qa
 echo "-----------------------------------------------------------------------"
@@ -203,7 +186,6 @@ chown -R root:root /root/.ssh
 @^server-product-environment
 dnf-yum
 rsync
--NetworkManager
 -biosdevname
 -dracut-config-rescue
 -grub2
