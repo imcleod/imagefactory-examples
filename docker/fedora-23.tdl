@@ -1,0 +1,12 @@
+<template>
+    <name>fedora23-testing123</name>
+    <os>
+        <name>Fedora</name>
+        <version>23</version>
+        <arch>x86_64</arch>
+        <install type='url'>
+            <url>http://download.eng.bos.redhat.com/released/F-23/GOLD/Server/x86_64/os/</url>
+        </install>
+        <rootpw>rrrrr</rootpw>
+    </os>
+</template>
