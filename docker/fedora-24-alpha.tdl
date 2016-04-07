@@ -1,0 +1,12 @@
+<template>
+    <name>fedora24-alpha</name>
+    <os>
+        <name>Fedora</name>
+        <version>24</version>
+        <arch>x86_64</arch>
+        <install type='url'>
+            <url>http://download.fedoraproject.org/pub/fedora/linux/releases/test/24_Alpha/Server/x86_64/os/</url>
+        </install>
+        <rootpw>rrrrr</rootpw>
+    </os>
+</template>
