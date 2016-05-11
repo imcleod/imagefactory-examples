@@ -1,0 +1,13 @@
+<template>
+    <name>centos-vagrant</name>
+    <os>
+        <name>RHEL-7</name>
+        <version>0</version>
+        <arch>x86_64</arch>
+        <install type='url'>
+            <url>http://mirrors.gigenet.com/centos/7/os/x86_64/</url>
+        </install>
+        <rootpw>ewwwwwww</rootpw>
+    </os>
+</template>
+
